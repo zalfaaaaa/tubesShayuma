@@ -32,63 +32,26 @@
                 <h2 class="title fw-bold mb-4">Layanan Kami</h2>
 
                 <div class="row g-4">
-                    <!-- Cuci Setrika -->
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm">
-                            <img src="{{ asset('img/cuciSetrika.png') }}" class="card-img-top" alt="Cuci Setrika">
+                    @foreach($layanans as $layanan)
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm">
 
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Cuci Setrika</h5>
-                                <p class="card-text">
-                                    Pakaian dicuci bersih, wangi, dan disetrika rapi dengan perawatan sesuai jenis kain.
-                                </p>
+                                {{-- Gambar default --}}
+                                <img src="{{ asset('img/laundry.png') }}" class="card-img-top" alt="{{ $layanan->layanan }}">
 
-                                <a href="{{ url('/order?layanan=Cuci Setrika') }}" class="btn btn-primary">
-                                    Order
-                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">{{ $layanan->layanan }}</h5>
+
+                                    <p class="card-text">{{ $layanan->desclayanan }}</p>
+
+                                    <p class="mb-2 text-primary"><strong> {{ $layanan->jenisLayanan }}<br>{{ $layanan->waktuLayanan }}<br>Rp{{ number_format($layanan->harga) }}</strong></p>
+
+                                    <a href="{{ url('/order?layanan_id='.$layanan->id) }}" class="btn btn-primary">Order</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Cuci Kering -->
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm">
-                            <img src="{{ asset('img/cuciKering.png') }}" class="card-img-top" alt="Cuci Kering">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Cuci Kering</h5>
-                                <p class="card-text">
-                                    Pakaian dicuci dan dikeringkan hingga bersih dan wangi tanpa proses setrika.
-                                </p>
-
-                                <a href="{{ url('/order?layanan=Cuci Kering') }}" class="btn btn-primary">
-                                    Order
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Setrika -->
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm">
-                            <img 
-                                src="{{ asset('img/setrika.png') }}" 
-                                class="card-img-top" 
-                                alt="Setrika">
-
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Setrika</h5>
-                                <p class="card-text">
-                                    Layanan setrika rapi dan halus dengan suhu sesuai jenis kain.
-                                </p>
-
-                                <a href="/order" class="btn btn-primary">
-                                    Order
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-
             </div>
         </section>
     </div>

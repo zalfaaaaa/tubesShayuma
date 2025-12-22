@@ -8,18 +8,24 @@ class Order extends Model
 {
     protected $fillable = [
         'user_id',
-        'nama_layanan',
-        'jenis_layanan',
-        'tipe',
+        'layanan_id',
+        'jumlah',
+        'harga_satuan',
+        'total_harga',
         'tanggal_masuk',
         'tanggal_keluar',
         'jam_pickup',
         'status'
     ];
 
-    // RELASI (INHERITANCE KONSEP)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function layanan()
+    {
+        return $this->belongsTo(Layanan::class);
+    }
 }
+        

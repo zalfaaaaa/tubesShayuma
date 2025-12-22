@@ -3,26 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
-
-/*
-|--------------------------------------------------------------------------
-| GUEST ROUTES
-|--------------------------------------------------------------------------
-*/
+use App\Models\Layanan;
 
 Route::get('/', function () {
-    return view('laundry.index');
+    $layanans = Layanan::all();
+    return view('laundry.index', compact('layanans'));
 });
 
 Route::get('/laundry', function () {
-    return view('laundry.index');
+    $layanans = Layanan::all();
+    return view('laundry.index', compact('layanans'));
 });
 
-/*
-|--------------------------------------------------------------------------
-| AUTH ROUTES
-|--------------------------------------------------------------------------
-*/
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -34,13 +26,12 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-/*
-|--------------------------------------------------------------------------
-| PROTECTED ROUTES (LOGIN WAJIB)
-|--------------------------------------------------------------------------
-*/
-
 Route::middleware('auth')->group(function () {
     Route::get('/order', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
+
+    Route::get('/resi/{id}', [OrderController::class, 'resi']);
+    Route::post('/resi/{id}/bayar', [OrderController::class, 'bayar']);
 });
+
+

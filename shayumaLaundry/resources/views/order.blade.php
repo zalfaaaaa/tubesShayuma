@@ -4,27 +4,57 @@
         <div class="card shadow-lg border-0 rounded-4" style="width: 100%; max-width: 500px;">
             <div class="card-body p-4">
                 <h4 class="fw-bold mb-4 text-center">Order Laundry</h4>
+
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
-                <form method="POST">
+
+                {{-- FORM ORDER --}}
+                <form method="POST" action="/order">
                     @csrf
+
                     <!-- Layanan -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Pilih Layanan</label>
-                        <select name="layanan" class="form-select" required>
+                        <select name="layanan_id" class="form-select" required>
                             <option value="">Pilih Layanan</option>
-                            <option value="Cuci Kering" {{ request('layanan') == 'Cuci Kering' ? 'selected' : '' }}>Cuci Kering</option>
-                            <option value="Cuci Setrika" {{ request('layanan') == 'Cuci Setrika' ? 'selected' : '' }}>Cuci Setrika</option>
+                            @foreach($layanans as $layanan)
+                                <option value="{{ $layanan->id }}" {{ isset($selectedLayanan) && $selectedLayanan->id == $layanan->id ? 'selected' : '' }}> {{ $layanan->layanan }} - Rp{{ number_format($layanan->harga) }}</option>
+                            @endforeach
                         </select>
                     </div>
 
-                    <!-- Berat -->
+                    <!-- Jumlah -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Jumlah (Kg / Satuan)
+                        </label>
+                        <input type="number"
+                               name="jumlah"
+                               class="form-control"
+                               placeholder="Masukkan jumlah"
+                               min="1"
+                               step="0.1"
+                               required>
+                    </div>
+
+                    <!-- Tanggal Masuk -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tanggal Masuk</label>
+                        <input type="date"
+                               name="tanggal_masuk"
+                               class="form-control"
+                               required>
+                    </div>
+
+                    <!-- Jam Pickup -->
                     <div class="mb-4">
-                        <label class="form-label fw-semibold">Berat (Kg)</label>
-                        <input type="number" name="berat" class="form-control" placeholder="Masukkan berat laundry"min="1"required>
+                        <label class="form-label fw-semibold">Jam Pickup (opsional)</label>
+                        <input type="time"
+                               name="jam_pickup"
+                               class="form-control">
                     </div>
 
                     <!-- Buttons -->
@@ -37,18 +67,7 @@
                             Order
                         </button>
                     </div>
-
-                    <!-- Logout Button -->
-                    <div class="text-center mt-3">
-                        <form method="POST" action="/logout" class="d-inline">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
-                                Logout
-                            </button>
-                        </form>
-                    </div>
                 </form>
-
             </div>
         </div>
 
