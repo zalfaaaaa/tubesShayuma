@@ -36,8 +36,8 @@
                         <div class="col-md-4">
                             <div class="card h-100 shadow-sm">
 
-                                {{-- Gambar default --}}
-                                <img src="{{ asset('img/laundry.png') }}" class="card-img-top" alt="{{ $layanan->layanan }}">
+                                <img src="{{ asset('img/' . $layanan->img_layanan) }}" width="200" class="rounded"alt="{{ $layanan->layanan }}"
+>
 
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">{{ $layanan->layanan }}</h5>

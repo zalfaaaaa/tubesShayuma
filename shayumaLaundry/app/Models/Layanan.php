@@ -8,9 +8,10 @@ class Layanan extends Model
 {
     protected $fillable = [
         'layanan',
-        'deskripsi_layanan',
-        'waktu_layanan',
-        'jenis_layanan',
+        'descLayanan',
+        'imgLayanan',
+        'waktuLayanan',
+        'jenisLayanan',
         'harga'
     ];
 

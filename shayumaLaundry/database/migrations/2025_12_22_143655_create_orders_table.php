@@ -11,11 +11,11 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('layanan_id')->constrained('layanans');
+            $table->foreignId('layanan_id')->constrained('layanans')->cascadeOnDelete();
 
-            $table->double('jumlah');              
-            $table->integer('harga_satuan');       
-            $table->integer('total_harga');
+            $table->decimal('jumlah', 5, 2);
+            $table->unsignedInteger('harga_satuan');
+            $table->unsignedInteger('total_harga');
 
             $table->date('tanggal_masuk');
             $table->date('tanggal_keluar')->nullable();

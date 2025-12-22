@@ -31,29 +31,39 @@ class OrderController extends Controller
             'berat' => 'required|numeric|min:1'
         ]);
 
-        Order::create([
+        $order = Order::create([
             'user_id' => auth()->id(),
             'layanan_id' => $request->layanan_id,
             'berat' => $request->berat,
-            'status' => 'MENUNGGU'
+            'status' => 'MENUNGGU_PEMBAYARAN'
         ]);
 
-        return redirect()->back()->with('success', 'Order berhasil dibuat');
+        return redirect()->route('order.resi', $order->id);
     }
+
 
 
     public function resi($id)
-{
-    $order = Order::with(['user', 'layanan'])->findOrFail($id);
-    return view('resi', compact('order'));
-}
+    {
+        $order = Order::with(['user', 'layanan'])
+            ->where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        return view('resi', compact('order'));
+    }
 
     public function bayar($id)
     {
-        $order = Order::findOrFail($id);
-        $order->update(['status' => 'DIPROSES']);
+        $order = Order::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
-        return back()->with('success', 'Pembayaran berhasil');
+        $order->update([
+            'status' => 'DIPROSES'
+        ]);
+
+        return redirect()->route('order.pesanan')
+            ->with('success', 'Pembayaran berhasil');
     }
-
 }

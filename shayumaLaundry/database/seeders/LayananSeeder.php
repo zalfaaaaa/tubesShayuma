@@ -12,65 +12,100 @@ class LayananSeeder extends Seeder
         Layanan::create([
             'layanan' => 'Cuci Kering',
             'descLayanan' => 'Cuci dan kering tanpa setrika',
-            'waktuLayanan' => 'express',
-            'jenisLayanan' => 'kilo',
-            'harga' => 7000
+            'imgLayanan' => 'cuciKering.png',
+            'waktuLayanan' => 'Express',
+            'jenisLayanan' => 'Kilo',
+            'harga' => 11000
         ]);
 
         Layanan::create([
             'layanan' => 'Cuci Kering',
             'descLayanan' => 'Cuci dan kering tanpa setrika',
-            'waktuLayanan' => 'reguler',
-            'jenisLayanan' => 'kilo',
-            'harga' => 7000
+            'imgLayanan' => 'cuciKering.png',
+            'waktuLayanan' => 'Reguler',
+            'jenisLayanan' => 'Kilo',
+            'harga' => 8000
         ]);
 
         Layanan::create([
             'layanan' => 'Cuci Kering',
             'descLayanan' => 'Cuci dan kering tanpa setrika',
-            'waktuLayanan' => 'express',
-            'jenisLayanan' => 'satuan',
-            'harga' => 7000
+            'imgLayanan' => 'cuciKering.png',
+            'waktuLayanan' => 'Express',
+            'jenisLayanan' => 'Satuan',
+            'harga' => 6000
         ]);
 
         Layanan::create([
             'layanan' => 'Cuci Kering',
             'descLayanan' => 'Cuci dan kering tanpa setrika',
-            'waktuLayanan' => 'reguler',
-            'jenisLayanan' => 'satuan',
-            'harga' => 7000
+            'imgLayanan' => 'cuciKering.png', 
+            'waktuLayanan' => 'Reguler',
+            'jenisLayanan' => 'Satuan',
+            'harga' => 5000
         ]);
 
         Layanan::create([
             'layanan' => 'Cuci Setrika',
             'descLayanan' => 'Cuci, kering dan setrika',
-            'waktuLayanan' => 'reguler',
-            'jenisLayanan' => 'kilo',
+            'imgLayanan' => 'cuciSetrika.png',
+            'waktuLayanan' => 'Reguler',
+            'jenisLayanan' => 'Kilo',
             'harga' => 9000
         ]);
 
         Layanan::create([
             'layanan' => 'Cuci Setrika',
             'descLayanan' => 'Cuci, kering dan setrika',
-            'waktuLayanan' => 'express',
-            'jenisLayanan' => 'kilo',
+            'imgLayanan' => 'cuciSetrika.png',
+            'waktuLayanan' => 'Express',
+            'jenisLayanan' => 'Kilo',
             'harga' => 9000
         ]);
 
         Layanan::create([
             'layanan' => 'Cuci Setrika',
             'descLayanan' => 'Cuci, kering dan setrika',
-            'waktuLayanan' => 'reguler',
-            'jenisLayanan' => 'satuan',
+            'imgLayanan' => 'cuciSetrika.png', 
+            'waktuLayanan' => 'Reguler',
+            'jenisLayanan' => 'Satuan',
             'harga' => 9000
         ]);
 
         Layanan::create([
             'layanan' => 'Setrika Saja',
             'descLayanan' => 'Setrika pakaian',
-            'waktuLayanan' => 'express',
-            'jenisLayanan' => 'kilo',
-            'harga' => 3000
+            'imgLayanan' => 'cuciSetrika.png', 
+            'waktuLayanan' => 'Express',
+            'jenisLayanan' => 'Kilo',
+            'harga' => 10000
+        ]);
+
+        Layanan::create([
+            'layanan' => 'Setrika Saja',
+            'descLayanan' => 'Setrika pakaian',
+            'imgLayanan' => 'cuciSetrika.png', 
+            'waktuLayanan' => 'Express',
+            'jenisLayanan' => 'Satuan',
+            'harga' => 8000
+        ]);
+
+        Layanan::create([
+            'layanan' => 'Setrika Saja',
+            'descLayanan' => 'Setrika pakaian',
+            'imgLayanan' => 'cuciSetrika.png', 
+            'waktuLayanan' => 'Reguler',
+            'jenisLayanan' => 'Kilo',
+            'harga' => 15000
+        ]);
+
+        Layanan::create([
+            'layanan' => 'Setrika Saja',
+            'descLayanan' => 'Setrika pakaian',
+            'imgLayanan' => 'cuciSetrika.png', 
+            'waktuLayanan' => 'Reguler',
+            'jenisLayanan' => 'Satuan',
+            'harga' => 10000
         ]);
     }
 }
