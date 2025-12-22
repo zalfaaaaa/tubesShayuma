@@ -1,0 +1,154 @@
+* {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right,
+                #C5A7FF,
+                #F6A9FF,
+                #FFF7C9,
+                #F6A9FF,
+                #C5A7FF
+            );
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .register-card {
+            background: #fff;
+            width: 380px;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        .register-card h2 {
+            margin: 0;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .register-card p {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin: 8px 0 25px;
+        }
+
+        .alert {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .alert-danger {
+            background: #fdecea;
+            color: #c62828;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8bc34a;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: #8bc34a;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .btn-register:hover {
+            background: #7cb342;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .footer-text a {
+            color: #8bc34a;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        ::placeholder {
+            font-style: italic;
+            color: #aaa; 
+        }
+
+        input:focus::placeholder,
+        textarea:focus::placeholder {
+            color: transparent;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group input,
+        .form-group textarea {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.2);
+        }

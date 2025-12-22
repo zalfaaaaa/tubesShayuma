@@ -27,12 +27,16 @@ class AuthController extends Controller
         return redirect('/login')->with('success', 'Registrasi Berhasil!');
     }
 
-    // Method untuk Login
+    public function showRegister()
+    {
+        return view('register'); 
+    }
+
     public function login(Request $request) {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect('/order'); // Jika sukses, arahkan ke menu pesanan
+            return redirect('/order'); 
         }
 
         return back()->with('error', 'Login gagal, periksa email/password.');
