@@ -35,10 +35,7 @@
                     <!-- Cuci Setrika -->
                     <div class="col-md-4">
                         <div class="card h-100 shadow-sm">
-                            <img 
-                                src="{{ asset('img/cuciSetrika.png') }}" 
-                                class="card-img-top" 
-                                alt="Cuci Setrika">
+                            <img src="{{ asset('img/cuciSetrika.png') }}" class="card-img-top" alt="Cuci Setrika">
 
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">Cuci Setrika</h5>
@@ -46,7 +43,7 @@
                                     Pakaian dicuci bersih, wangi, dan disetrika rapi dengan perawatan sesuai jenis kain.
                                 </p>
 
-                                <a href="/order" class="btn btn-primary">
+                                <a href="{{ url('/order?layanan=Cuci Setrika') }}" class="btn btn-primary">
                                     Order
                                 </a>
                             </div>
@@ -56,18 +53,14 @@
                     <!-- Cuci Kering -->
                     <div class="col-md-4">
                         <div class="card h-100 shadow-sm">
-                            <img 
-                                src="{{ asset('img/cuciKering.png') }}" 
-                                class="card-img-top" 
-                                alt="Cuci Kering">
-
+                            <img src="{{ asset('img/cuciKering.png') }}" class="card-img-top" alt="Cuci Kering">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">Cuci Kering</h5>
                                 <p class="card-text">
                                     Pakaian dicuci dan dikeringkan hingga bersih dan wangi tanpa proses setrika.
                                 </p>
 
-                                <a href="/order" class="btn btn-primary">
+                                <a href="{{ url('/order?layanan=Cuci Kering') }}" class="btn btn-primary">
                                     Order
                                 </a>
                             </div>
@@ -98,6 +91,5 @@
 
             </div>
         </section>
-
     </div>
 </x-layout>
