@@ -29,13 +29,23 @@
 
                     <!-- Buttons -->
                     <div class="d-flex gap-3">
-                        <a href="/laundry" class="btn btn-outline-secondary w-50 rounded-pill">
+                        <a href="/laundry" class="btn btn-outline-secondary rounded-pill">
                             Cancel
                         </a>
 
-                        <button type="submit" class="btn btn-success w-50 rounded-pill">
+                        <button type="submit" class="btn btn-success rounded-pill">
                             Order
                         </button>
+                    </div>
+
+                    <!-- Logout Button -->
+                    <div class="text-center mt-3">
+                        <form method="POST" action="/logout" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
+                                Logout
+                            </button>
+                        </form>
                     </div>
                 </form>
 
