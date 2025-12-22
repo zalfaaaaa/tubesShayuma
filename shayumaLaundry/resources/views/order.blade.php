@@ -14,7 +14,18 @@
                 {{-- FORM ORDER --}}
                 <form method="POST" action="/order">
                     @csrf
-
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nama</label>
+                        <input type="text" class="form-control" value="{{ auth()->user()->name }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">No Telepon</label>
+                        <input type="text" class="form-control" value="{{ auth()->user()->phone }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Alamat</label>
+                        <textarea class="form-control" rows="2" readonly>{{ auth()->user()->address }}</textarea>
+                    </div>
                     <!-- Layanan -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Pilih Layanan</label>

@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
 
     public function index(Request $request)
     {
+        $user = Auth::user();
         $layanans = Layanan::all();
-        $selectedLayanan = null;
 
+        $selectedLayanan = null;
         if ($request->has('layanan_id')) {
             $selectedLayanan = Layanan::find($request->layanan_id);
         }
