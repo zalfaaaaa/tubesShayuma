@@ -27,10 +27,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'layanan_id' => 'required|exists:layanans,id',
+            'layanan_id' => 'required',
             'berat' => 'required|numeric|min:1',
-            'tanggal_masuk' => 'required|date',
-            'jam_pickup' => 'nullable'
         ]);
 
         $layanan = Layanan::findOrFail($request->layanan_id);
@@ -38,14 +36,14 @@ class OrderController extends Controller
         $totalHarga = $request->berat * $layanan->harga;
 
         $order = Order::create([
-            'user_id'        => auth()->id(),
-            'layanan_id'     => $layanan->id,
-            'jumlah'         => $request->berat,          // pakai berat sebagai jumlah
-            'harga_satuan'   => $layanan->harga,
-            'total_harga'    => $totalHarga,
-            'tanggal_masuk'  => $request->tanggal_masuk,
-            'jam_pickup'     => $request->jam_pickup,
-            'status'         => 'MENUNGGU_PEMBAYARAN'
+            'user_id'       => auth()->id(),
+            'layanan_id'    => $layanan->id,
+            'berat'         => $request->berat,          // 🔴 WAJIB
+            'harga_satuan'  => $layanan->harga,
+            'total_harga'   => $totalHarga,
+            'tanggal_masuk' => now(),
+            'jam_pickup'    => $request->jam_pickup,
+            'status'        => 'MENUNGGU_PEMBAYARAN',
         ]);
 
         return redirect()->route('order.resi', $order->id);

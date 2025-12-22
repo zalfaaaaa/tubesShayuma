@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('layanan_id')->constrained('layanans')->cascadeOnDelete();
 
-            $table->decimal('jumlah', 5, 2);
+            $table->decimal('berat', 5, 2);
             $table->unsignedInteger('harga_satuan');
             $table->unsignedInteger('total_harga');
 

@@ -9,14 +9,13 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'layanan_id',
-        'jumlah',
+        'berat',          // 🔴 WAJIB
         'harga_satuan',
         'total_harga',
         'tanggal_masuk',
         'tanggal_keluar',
         'jam_pickup',
         'status',
-        'berat'
     ];
 
     public function user()
