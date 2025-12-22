@@ -35,4 +35,9 @@ class AuthController extends Controller
 
         return back()->with('error', 'Login gagal, periksa email/password.');
     }
+
+    public function showLogin()
+    {
+        return view('login');
+    }
 }

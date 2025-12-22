@@ -9,6 +9,7 @@
 <select name="layanan">
     <option>Cuci Kering</option>
     <option>Cuci Setrika</option>
+    <option>Setrika Saja</option>
 </select><br>
 
 <input type="number" name="berat" placeholder="Berat (kg)"><br>

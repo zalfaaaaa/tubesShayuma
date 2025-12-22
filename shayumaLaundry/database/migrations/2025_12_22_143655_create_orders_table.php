@@ -13,10 +13,18 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('layanan');
-            $table->integer('berat');
-            $table->string('status');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            $table->string('nama_layanan');
+            $table->enum('jenis_layanan', ['kilat', 'reguler']);
+            $table->enum('tipe', ['kilo', 'satuan']);
+
+            $table->date('tanggal_masuk');
+            $table->date('tanggal_keluar');
+            $table->time('jam_pickup');
+
+            $table->string('status')->default('MENUNGGU_PEMBAYARAN');
+
             $table->timestamps();
         });
     }
