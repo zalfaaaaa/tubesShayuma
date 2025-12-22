@@ -20,6 +20,8 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password), // Enkapsulasi password (hashing)
+            'phone' => $request->phone,
+            'address' => $request->address,
         ]);
 
         return redirect('/login')->with('success', 'Registrasi Berhasil!');
@@ -39,5 +41,11 @@ class AuthController extends Controller
     public function showLogin()
     {
         return view('login');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login')->with('success', 'Logout berhasil!');
     }
 }
