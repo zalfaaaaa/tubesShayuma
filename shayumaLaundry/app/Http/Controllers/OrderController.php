@@ -66,4 +66,25 @@ class OrderController extends Controller
         return redirect()->route('order.pesanan')
             ->with('success', 'Pembayaran berhasil');
     }
+
+    public function history()
+    {
+        $orders = Order::with('layanan')
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('history', compact('orders'));
+    }
+
+    public function riwayat()
+    {
+        $orders = Order::with('layanan')
+            ->where('user_id', Auth::id())
+            ->where('status', 'SELESAI')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('riwayat', compact('orders'));
+    }
 }

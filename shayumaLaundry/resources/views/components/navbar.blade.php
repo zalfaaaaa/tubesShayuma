@@ -4,6 +4,16 @@
         <h2 class="mt-2 fw-bolder">Shayuma Laundry ∘˙○˚.•⋅</h2>
     </div>
 
+    <!-- GARIS PEMISAH -->
+        <hr class="my-2">
+
+        <!-- BARIS BAWAH (MENU) -->
+        <div class="d-flex gap-4">
+            <a href="{{ route('laundry') }}" class="text-decoration-none fw-semibold">Home</a>
+            <a href="{{ route('riwayat') }}" class="text-decoration-none fw-semibold">Riwayat</a>
+            <a href="{{ route('history') }}" class="text-decoration-none fw-semibold">History</a>
+        </div>
+
     <div class="ms-auto d-flex align-items-center gap-2">
         @guest
             <a href="{{ route('login') }}" class="btn btn-outline-primary">Login</a>

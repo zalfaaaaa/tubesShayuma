@@ -9,16 +9,15 @@ Route::get('/', function () {
     return redirect('/laundry');
 });
 
-Route::get('/laundry', function () {
-    $layanans = Layanan::all();
-    return view('laundry.index', compact('layanans'));
+Route::get('/', function () {
+    return redirect('/laundry');
 });
-
 
 Route::get('/laundry', function () {
     $layanans = Layanan::all();
     return view('laundry.index', compact('layanans'));
 })->name('laundry');
+
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -35,5 +34,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/resi/{id}', [OrderController::class, 'resi'])->name('order.resi');
     Route::post('/resi/{id}/bayar', [OrderController::class, 'bayar'])->name('order.bayar');
+
+    Route::get('/history', [OrderController::class, 'history'])->name('history');
+
+    Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat');
 
 });
