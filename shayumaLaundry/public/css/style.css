@@ -1,0 +1,98 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-section {
+    min-height: 50vh;
+}
+
+.content {
+    min-height: 25vh;
+    /* background-image: linear-gradient(to right, #E5D1FA, #FFF4D2); */
+    background: linear-gradient(to right,
+        #C5A7FF,
+        #F6A9FF,
+        #FFF7C9,
+        #FFF7C9,
+        #F6A9FF,
+        #C5A7FF
+    );
+}
+
+.hero-img {
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.tittle{
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section,
+    .content {
+        padding: 3rem 1.5rem !important;
+    }
+    
+    h1 {
+        font-size: 2rem !important;
+    }
+}
+
+.mini-footer {
+    padding: 16px 0;
+    background: #fff;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.mini-footer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mini-footer-menu li {
+    display: inline-block;
+    margin: 0 8px;
+}
+
+.mini-footer-menu a {
+    font-size: .75rem;
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.mini-footer-menu a:hover {
+    color: #000;
+}
+
+.mini-copy {
+    font-size: .7rem;
+    color: #9aa0a6;
+}
+
+.hero-title {
+    color: #fff;
+    font-weight: 800;
+    text-shadow: 0 3px 8px rgba(0,0,0,.55);
+    margin-bottom: 8px; /* jarak judul → teks DIPERKECIL */
+}
+
+.hero-text {
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.7;
+    text-shadow: 0 2px 6px rgba(0,0,0,.45);
+    margin-top: 0;
+}
+
+.hero-slogan {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    text-shadow: 0 3px 8px rgba(0,0,0,.6);
+    font-style: italic;
+}
