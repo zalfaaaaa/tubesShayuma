@@ -27,20 +27,29 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'layanan_id' => 'required',
-            'berat' => 'required|numeric|min:1'
+            'layanan_id' => 'required|exists:layanans,id',
+            'berat' => 'required|numeric|min:1',
+            'tanggal_masuk' => 'required|date',
+            'jam_pickup' => 'nullable'
         ]);
 
+        $layanan = Layanan::findOrFail($request->layanan_id);
+
+        $totalHarga = $request->berat * $layanan->harga;
+
         $order = Order::create([
-            'user_id' => auth()->id(),
-            'layanan_id' => $request->layanan_id,
-            'berat' => $request->berat,
-            'status' => 'MENUNGGU_PEMBAYARAN'
+            'user_id'        => auth()->id(),
+            'layanan_id'     => $layanan->id,
+            'jumlah'         => $request->berat,          // pakai berat sebagai jumlah
+            'harga_satuan'   => $layanan->harga,
+            'total_harga'    => $totalHarga,
+            'tanggal_masuk'  => $request->tanggal_masuk,
+            'jam_pickup'     => $request->jam_pickup,
+            'status'         => 'MENUNGGU_PEMBAYARAN'
         ]);
 
         return redirect()->route('order.resi', $order->id);
     }
-
 
 
     public function resi($id)

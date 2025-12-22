@@ -15,7 +15,8 @@ class Order extends Model
         'tanggal_masuk',
         'tanggal_keluar',
         'jam_pickup',
-        'status'
+        'status',
+        'berat'
     ];
 
     public function user()

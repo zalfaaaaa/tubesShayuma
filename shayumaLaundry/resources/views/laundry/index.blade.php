@@ -33,7 +33,7 @@
                     @foreach($layanans as $layanan)
                         <div class="col-md-4">
                             <div class="card h-100 shadow-sm">
-                                <img src="{{ asset('img/' . $layanan->img_Layanan) }}" width="200" class="rounded"alt="{{ $layanan->layanan }}">
+                                <img src="{{ asset('img/' . $layanan->imgLayanan) }}" width="200" class="rounded"alt="{{ $layanan->layanan }}">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">{{ $layanan->layanan }}</h5>
 
