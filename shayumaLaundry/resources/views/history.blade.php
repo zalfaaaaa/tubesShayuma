@@ -1,5 +1,5 @@
 <x-layout title="History Order">
-    <div class="container my-5">
+    <div class="container my-5 fade-in">
         <h3 class="fw-bold mb-4 text-center">History Pesanan</h3>
 
         @if($orders->count() == 0)

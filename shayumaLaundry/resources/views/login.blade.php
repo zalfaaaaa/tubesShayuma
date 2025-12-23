@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <div class="login-card">
+    <div class="login-card fade-in">
         <h2>✨ SHAYUMA Laundry</h2>
         <p>Login ke akun Anda</p>
 

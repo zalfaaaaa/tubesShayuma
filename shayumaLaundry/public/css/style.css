@@ -96,3 +96,23 @@
     text-shadow: 0 3px 8px rgba(0,0,0,.6);
     font-style: italic;
 }
+
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;    
+}
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+.text-justify {
+    text-align: justify;
+    line-height: 1.7;
+}

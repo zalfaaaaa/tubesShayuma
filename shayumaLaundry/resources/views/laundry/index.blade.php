@@ -1,5 +1,5 @@
 <x-layout title="Laundry">
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 fade-in">
 
         <!-- Hero Image Section -->
         <section class="hero-section d-flex align-items-center justify-content-center py-4">
@@ -33,15 +33,19 @@
                     @foreach($layanans as $layanan)
                         <div class="col-md-4">
                             <div class="card h-100 shadow-sm">
-                                <img src="{{ asset('img/' . $layanan->imgLayanan) }}" width="200" class="rounded"alt="{{ $layanan->layanan }}">
+                                <img src="{{ asset('img/' . $layanan->imgLayanan) }}">
+
+
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">{{ $layanan->layanan }}</h5>
 
-                                    <p class="card-text">{{ $layanan->desclayanan }}</p>
+                                    <p class="card-text">{{ $layanan->descLayanan }}</p>
 
-                                    <p class="mb-2 text-primary"><strong> {{ $layanan->jenisLayanan }}<br>{{ $layanan->waktuLayanan }}<br>Rp{{ number_format($layanan->harga) }}</strong></p>
+                                    <p class="mb-2 text-primary text-justify"><strong> {{ $layanan->jenisLayanan }}<br>{{ $layanan->waktuLayanan }}<br>Rp{{ number_format($layanan->harga) }}</strong></p>
 
-                                    <a href="{{ url('/order?layanan_id='.$layanan->id) }}" class="btn btn-primary">Order</a>
+                                    <div class="text-end">
+                                        <a href="{{ url('/order?layanan_id='.$layanan->id) }}" class="btn btn-primary">Order</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

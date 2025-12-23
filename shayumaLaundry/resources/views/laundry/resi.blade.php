@@ -1,5 +1,5 @@
 <x-layout title="Resi Laundry">
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5 fade-in">
         <div class="card shadow rounded-4">
             <div class="card-body p-4">
 

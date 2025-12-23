@@ -1,5 +1,5 @@
 <x-layout title="Order Laundry">
-   <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+   <div class="container d-flex justify-content-center align-items-center fade-in" style="min-height: 80vh;">
         <div class="card shadow-lg border-0 rounded-4 mt-5 mb-5"" style="width: 100%; max-width: 800px;">
             <div class="card-body p-4">
                 <h4 class="fw-bold mb-4 text-center">Order Laundry</h4>
@@ -32,15 +32,7 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Berat Laundry (Kg)</label>
-                            <input 
-                                type="number" 
-                                name="berat" 
-                                class="form-control form-control-sm" 
-                                min="1" 
-                                step="0.1"
-                                required
-                                value="{{ old('berat') }}"
-                            >
+                            <input type="number" name="berat" class="form-control form-control-sm" min="1" step="0.1"requiredvalue="{{ old('berat') }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Pilih Layanan</label>

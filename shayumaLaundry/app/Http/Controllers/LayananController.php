@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class LayananController extends Controller
 {
+    public function index()
+    {
+        $layanans = Layanan::all();
+        return view('laundry.index', compact('layanans'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([

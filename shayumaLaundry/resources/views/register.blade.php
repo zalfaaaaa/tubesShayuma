@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="register-card">
+<div class="register-card fade-in">
     <h2>✨ Shayuma Laundry</h2>
     <p>Daftar akun baru</p>
 

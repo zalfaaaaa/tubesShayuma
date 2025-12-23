@@ -3,21 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LayananController;
 use App\Models\Layanan;
 
 Route::get('/', function () {
     return redirect('/laundry');
 });
 
-Route::get('/', function () {
-    return redirect('/laundry');
-});
 
-Route::get('/laundry', function () {
-    $layanans = Layanan::all();
-    return view('laundry.index', compact('layanans'));
-})->name('laundry');
-
+Route::get('/laundry', [LayananController::class, 'index'])->name('laundry');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

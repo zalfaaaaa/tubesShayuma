@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('layanan');                 
             $table->text('descLayanan');         
             $table->string('imgLayanan')->nullable();         
-            $table->enum('waktuLayanan', ['express', 'reguler']);            
-            $table->enum('jenisLayanan', ['kilo', 'satuan']);
+            $table->enum('waktuLayanan', ['Express', 'Reguler']);            
+            $table->enum('jenisLayanan', ['Kilo', 'Satuan']);
             $table->integer('harga');                   
             $table->timestamps();
         });
