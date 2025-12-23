@@ -82,7 +82,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::put('/layanan/{layanan}', [LayananController::class, 'update'])
         ->name('layanan.update');
 
-        Route::get('/orders/history', [AdminOrderController::class, 'history'])
-        ->name('orders.history');
+        Route::get('/history', [AdminOrderController::class, 'history'])
+        ->name('history');
 
+        Route::delete('/orders/{order}', [AdminOrderController::class, 'destroy'])
+        ->name('orders.destroy');
     });

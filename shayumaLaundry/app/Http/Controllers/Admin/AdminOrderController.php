@@ -39,20 +39,28 @@ class AdminOrderController extends Controller
             'berat'  => 'nullable|numeric|min:3',
         ]);
 
-        // 1. Admin baru input berat
-        if ($request->filled('berat') && $order->berat === null) {
+        if ($request->has('berat')) {
             $order->inputBerat($request->berat);
-
-            // otomatis jadi menunggu pembayaran
-            $order->ubahStatus(Order::STATUS_MENUNGGU_PEMBAYARAN);
         }
 
-        // 2. Admin hanya ubah status
-        elseif ($request->status !== $order->status) {
+        if ($request->status !== $order->status) {
             $order->ubahStatus($request->status);
         }
 
         return back()->with('success', 'Order berhasil diperbarui');
     }
 
+    public function history()
+    {
+        $orders = Order::latest()->get();
+
+        return view('Admin.history.index', compact('orders'));
+    }
+
+    public function destroy(Order $order)
+    {
+        $order->delete();
+
+        return back()->with('success', 'Order berhasil dihapus');
+    }
 }

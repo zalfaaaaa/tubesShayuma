@@ -39,13 +39,9 @@
 
             @auth
                 @role('admin')
-                    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">
-                        Kelola Layanan
-                    </a>
-
-                    <a href="{{ route('admin.orders') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">
-                        Orders
-                    </a>
+                    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">Kelola Layanan</a>
+                    <a href="{{ route('admin.orders') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">Orders</a>
+                    <a href="{{ route('admin.history') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">History</a>
                 @endrole
             @endauth
 
