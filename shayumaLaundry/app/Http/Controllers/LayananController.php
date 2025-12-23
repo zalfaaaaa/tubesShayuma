@@ -19,10 +19,10 @@ class LayananController extends Controller
         $request->validate([
             'layanan'        => 'required|string',
             'descLayanan'    => 'required|string',
+            'imgLayanan'     => 'image|mimes:jpg,png,jpeg|max:5120',
             'waktuLayanan'   => 'required',
             'jenisLayanan'   => 'required',
-            'harga'          => 'required|numeric|min:0',
-            'imgLayanan'     => 'image|mimes:jpg,png,jpeg|max:2048'
+            'harga'          => 'required|numeric|min:0'
         ]);
 
         $namaFile = null;
