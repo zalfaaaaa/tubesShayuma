@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Layanan;
+use App\Models\User;
 use Exception;
 
 class Order extends BaseOrder
@@ -22,8 +23,8 @@ class Order extends BaseOrder
             'user_id'       => auth()->id(),
             'layanan_id'    => $layanan->id,
             'harga_satuan'  => $layanan->harga,
-            'berat'         => null,
-            'total_harga'   => null,
+            'berat'         => self::MIN_BERAT,
+            'total_harga'   => self::MIN_BERAT * $layanan->harga,
             'jam_pickup'    => $data['jam_pickup'],
             'tanggal_masuk' => now(),
             'status'        => self::STATUS_PICKUP,
@@ -33,14 +34,13 @@ class Order extends BaseOrder
     // polymorphism
     public function inputBerat(float $berat): void
     {
-        if ($this->status !== self::STATUS_PICKUP) {
-            throw new Exception('Order tidak bisa ditimbang');
+        if ($berat < self::MIN_BERAT) {
+            throw new Exception('Berat minimal 3 kg');
         }
 
         $this->update([
             'berat'       => $berat,
             'total_harga' => $this->hitungTotal($berat),
-            'status'      => self::STATUS_MENUNGGU_PEMBAYARAN,
         ]);
     }
 
@@ -68,5 +68,10 @@ class Order extends BaseOrder
         return $this->total_harga !== null
             ? 'Rp ' . number_format($this->total_harga)
             : 'Menunggu inputan admin';
-}
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

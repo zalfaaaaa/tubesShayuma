@@ -13,6 +13,8 @@ abstract class BaseOrder extends Model implements OrderProcessInterface
     const STATUS_MENUNGGU_PEMBAYARAN = 'MENUNGGU_PEMBAYARAN';
     const STATUS_DIPROSES = 'DIPROSES';
     const STATUS_SELESAI = 'SELESAI';
+    const STATUS_DIAMBIL = 'DIAMBIL';
+    const MIN_BERAT = 3.0;
 
     protected $fillable = [
         'user_id',

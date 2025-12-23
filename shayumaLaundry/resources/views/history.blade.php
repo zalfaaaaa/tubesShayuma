@@ -16,7 +16,6 @@
                             <th>Layanan</th>
                             <th>Jenis</th>
                             <th>Jumlah</th>
-                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -26,10 +25,10 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td>{{ $order->layanan->layanan ?? '-' }}</td>
-                            <td>{{ ucfirst($order->jenis_layanan) }}</td>
-                            <td>{{ $order->jumlah }} {{ $order->jenis_layanan == 'kilo' ? 'Kg' : 'Item' }}</td>
+                            <td>{{ ucfirst($order->jenisLayanan) }}</td>
+                            <td>{{ $order->jumlah }} {{ $order->jenisLayanan == 'kilo' ? 'Kg' : 'Item' }}</td>
 
-                            <td>
+                            <!-- <td>
                                 @if($order->status == 'MENUNGGU')
                                     <span class="badge bg-warning">Menunggu</span>
                                 @elseif($order->status == 'DIPROSES')
@@ -37,7 +36,7 @@
                                 @elseif($order->status == 'SELESAI')
                                     <span class="badge bg-success">Selesai</span>
                                 @endif
-                            </td>
+                            </td> -->
 
                             <td>
                                 <a href="{{ url('/resi/'.$order->id) }}" class="btn btn-sm btn-outline-secondary">
