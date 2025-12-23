@@ -16,11 +16,15 @@ class AdminOrderController extends Controller
 
     public function update(Request $request, $id)
     {
-        Order::findOrFail($id)->update([
-            'berat' => $request->berat,
-            'status' => $request->status
+        $request->validate([
+            'berat' => 'required|numeric|min:1'
         ]);
 
-        return back()->with('success', 'Order berhasil diupdate');
+        $order = Order::findOrFail($id);
+
+        // 🔥 OOP: controller tidak tahu detail
+        $order->inputBerat($request->berat);
+
+        return back()->with('success', 'Berat berhasil diinput & status diperbarui');
     }
 }
