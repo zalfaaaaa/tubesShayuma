@@ -27,14 +27,18 @@ class OrderController extends Controller
     {
         $request->validate([
             'layanan_id' => 'required|exists:layanans,id',
-            'jam_pickup' => 'required',
         ]);
 
-        // 🔑 PAKAI FACTORY METHOD (OOP)
-        Order::buatOrder($request->all());
+        $layanan = Layanan::findOrFail($request->layanan_id);
 
-        return redirect('/riwayat')
-            ->with('success', 'Order berhasil dibuat');
+        Order::create([
+            'user_id' => auth()->id(),
+            'layanan_id' => $layanan->id,
+            'harga_satuan' => $layanan->harga,
+            'status' => 'PICKUP', // ✅ SESUAI ENUM
+        ]);
+
+        return redirect('/riwayat');
     }
 
     public function riwayat()

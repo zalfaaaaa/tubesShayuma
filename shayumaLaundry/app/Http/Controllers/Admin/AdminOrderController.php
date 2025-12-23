@@ -10,33 +10,49 @@ class AdminOrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['user', 'layanan'])
-            ->latest()
-            ->get();
-
+        $orders = Order::with(['user', 'layanan'])->latest()->get();
         return view('Admin.orders.index', compact('orders'));
     }
 
-    public function dashboard()
+    public function update(Request $request, Order $order)
     {
-        $totalOrder = Order::count();
+        $request->validate([
+            'berat' => 'nullable|numeric|min:3',
+            'status' => 'required'
+        ]);
 
-        return view('Admin.dashboard', compact('totalOrder'));
+        if ($request->filled('berat')) {
+            $order->berat = $request->berat;
+            $order->total_harga = $order->berat * $order->harga_satuan;
+        }
+
+        $order->status = $request->status;
+        $order->save();
+
+        return back()->with('success', 'Order diperbarui');
     }
 
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
-            'status' => 'required|in:PICKUP,DIPROSES,SELESAI',
-            'berat'  => 'required|numeric|min:1',
+            'status' => 'required',
+            'berat'  => 'nullable|numeric|min:3',
         ]);
 
-        $order->update([
-            'status'       => $request->status,
-            'berat'        => $request->berat,
-            'total_harga'  => $request->berat * $order->layanan->harga,
-        ]);
+        // 1. Admin baru input berat
+        if ($request->filled('berat') && $order->berat === null) {
+            $order->inputBerat($request->berat);
 
-        return back()->with('success', 'Order diperbarui');
+            // otomatis jadi menunggu pembayaran
+            $order->ubahStatus(Order::STATUS_MENUNGGU_PEMBAYARAN);
+        }
+
+        // 2. Admin hanya ubah status
+        elseif ($request->status !== $order->status) {
+            $order->ubahStatus($request->status);
+        }
+
+        return back()->with('success', 'Order berhasil diperbarui');
     }
+
 }

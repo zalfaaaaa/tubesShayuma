@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Layanan;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LayananController;
@@ -53,7 +54,9 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
 
         Route::get('/dashboard', function () {
-            return view('Admin.home.index');
+            $layanans = Layanan::all();
+
+            return view('Admin.home.index', compact('layanans'));
         })->name('dashboard');
 
         Route::get('/orders', [AdminOrderController::class, 'index'])

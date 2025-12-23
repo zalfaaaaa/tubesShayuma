@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Layanan;
-use App\Models\Order;
 use Illuminate\Http\Request;
 
 class LayananController extends Controller
@@ -11,25 +11,40 @@ class LayananController extends Controller
     public function index()
     {
         $layanans = Layanan::all();
-        return view('laundry.index', compact('layanans'));
+        return view('Admin.layanan.index', compact('layanans'));
+    }
+
+    public function create()
+    {
+        return view('Admin.layanan.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'layanan_id' => 'required|exists:layanans,id',
+            'layanan' => 'required',
+            'harga' => 'required|numeric',
         ]);
 
-        // 🔑 AMBIL DATA LAYANAN
-        $layanan = Layanan::findOrFail($request->layanan_id);
+        Layanan::create($request->all());
 
-        Order::create([
-            'user_id' => auth()->id(),
-            'layanan_id' => $request->layanan_id,
-            'harga_satuan' => $layanan->harga, // 🔥 WAJIB ADA
-            'status' => 'pending',
-        ]);
+        return redirect()->route('admin.layanan.index');
+    }
 
-        return redirect('/riwayat');
+    public function edit(Layanan $layanan)
+    {
+        return view('Admin.layanan.edit', compact('layanan'));
+    }
+
+    public function update(Request $request, Layanan $layanan)
+    {
+        $layanan->update($request->all());
+        return redirect()->route('admin.layanan.index');
+    }
+
+    public function destroy(Layanan $layanan)
+    {
+        $layanan->delete();
+        return back();
     }
 }

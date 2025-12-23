@@ -22,8 +22,18 @@
                                 <td>{{ $order->user->name }}</td>
                                 <td>{{ $order->layanan->layanan }}</td>
                                 <td>
-                                    <span class="badge bg-info">
-                                        {{ $order->status }}
+                                    @php
+                                    $colors = [
+                                        'PICKUP' => 'secondary',
+                                        'MENUNGGU_PEMBAYARAN' => 'warning',
+                                        'DIPROSES' => 'primary',
+                                        'SELESAI' => 'success',
+                                        'DIAMBIL' => 'dark',
+                                    ];
+                                    @endphp
+
+                                    <span class="badge bg-{{ $colors[$order->status] }}">
+                                        {{ str_replace('_',' ', $order->status) }}
                                     </span>
                                 </td>
 

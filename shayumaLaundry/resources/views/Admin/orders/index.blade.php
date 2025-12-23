@@ -26,17 +26,26 @@
 
                     <select name="status" class="form-select form-select-sm mb-2">
                         @foreach (['PICKUP','MENUNGGU_PEMBAYARAN','DIPROSES','SELESAI','DIAMBIL'] as $status)
-                            <option value="{{ $status }}" 
+                            <option value="{{ $status }}"
                                 {{ $order->status == $status ? 'selected' : '' }}>
                                 {{ str_replace('_',' ', $status) }}
                             </option>
                         @endforeach
                     </select>
 
+                    <!-- 🔑 INPUT BERAT (EDIT INI) -->
+                    <input type="number"
+                        name="berat"
+                        step="0.1"
+                        min="3"
+                        class="form-control form-control-sm mb-2"
+                        placeholder="Masukkan berat (kg)">
+
                     <button class="btn btn-sm btn-primary">
                         Update
                     </button>
                 </form>
+
             </td>
         </tr>
         @endforeach
