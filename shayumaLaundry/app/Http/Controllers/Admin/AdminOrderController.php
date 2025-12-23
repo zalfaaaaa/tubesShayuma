@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AdminOrderController extends Controller
 {
@@ -50,11 +51,24 @@ class AdminOrderController extends Controller
         return back()->with('success', 'Order berhasil diperbarui');
     }
 
-    public function history()
+    public function history(Request $request)
     {
-        $orders = Order::latest()->get();
+        // Minggu & tahun (default minggu ini)
+        $week = $request->week ?? now()->weekOfYear;
+        $year = $request->year ?? now()->year;
 
-        return view('Admin.history.index', compact('orders'));
+        // Range minggu
+        $start = now()->setISODate($year, $week)->startOfWeek();
+        $end   = now()->setISODate($year, $week)->endOfWeek();
+
+        // Semua order selesai
+        $orders = Order::with(['user', 'layanan'])
+            ->where('status', 'selesai')
+            ->whereBetween('created_at', [$start, $end])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Admin.history.index', compact('orders', 'week', 'year'));
     }
 
     public function destroy(Order $order)

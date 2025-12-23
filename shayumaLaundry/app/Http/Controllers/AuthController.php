@@ -19,7 +19,6 @@ class AuthController extends Controller
         return view('register');
     }
 
-    // REGISTER → otomatis pelanggan
     public function register(Request $request)
     {
         $request->validate([
@@ -38,15 +37,13 @@ class AuthController extends Controller
             'address' => $request->address,
         ]);
 
-        // ROLE DEFAULT
         $user->assignRole('pelanggan');
 
         Auth::login($user);
 
-        return redirect('/order');
+        return redirect('/login');
     }
 
-    // LOGIN → redirect sesuai role
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -57,7 +54,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // 🔑 ROLE BASED REDIRECT
             if (auth()->user()->hasRole('admin')) {
             return redirect()->route('admin.dashboard');
         }
@@ -77,6 +73,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/laundry');
     }
 }

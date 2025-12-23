@@ -4,7 +4,18 @@
         <div class="card-body">
 
             <h3 class="fw-bold mb-4 text-center">Riwayat Pesanan</h3>
-            
+
+            <form method="GET" class="mb-3">
+            <select name="week" class="form-select w-auto d-inline">
+                @for($i = 1; $i <= 5; $i++)
+                    <option value="{{ $i }}" {{ request('week') == $i ? 'selected' : '' }}>
+                        Minggu ke-{{ $i }}
+                    </option>
+                @endfor
+            </select>
+
+    <button class="btn btn ms-2 rounded-4 text-white" style="background-color: #9d4edd">Filter</button>
+</form>
 
             <div class="table-responsive round overflow-hidden shadow mb-4">
                 <table class="table table-borderless align-middle text-center">
