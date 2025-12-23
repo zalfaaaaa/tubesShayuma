@@ -1,5 +1,5 @@
 <x-layout title="Resi Laundry">
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5 fade-in">
         <div class="card shadow rounded-4">
             <div class="card-body p-4">
 
@@ -20,10 +20,8 @@
                     </tr>
                     <tr>
                         <th>Layanan</th>
-                        <td>
-                            : {{ $order->layanan->layanan }}
-                            ({{ ucfirst($order->layanan->jenisLayanan) }})
-                        </td>
+                        <td>: {{ $order->layanan->layanan }}
+                            ({{ ucfirst($order->layanan->jenisLayanan) }} | {{ $order->layanan->waktuLayanan }})</td>
                     </tr>
                     <tr>
                         <th>Harga / Kg</th>
@@ -35,24 +33,16 @@
                     </tr>
                     <tr>
                         <th>Total</th>
-                        <td class="fw-bold">
-                            : Rp {{ number_format($order->berat * $order->layanan->harga) }}
-                        </td>
+                        <td class="fw-bold">: Rp {{ number_format($order->berat * $order->layanan->harga) }}</td>
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td>
-                            : <span class="badge bg-warning text-dark">
-                                {{ str_replace('_',' ', $order->status) }}
-                              </span>
-                        </td>
+                        <td>: <span class="badge bg-warning text-dark">{{ str_replace('_',' ', $order->status) }}</span></td>
                     </tr>
                 </table>
 
                 <div class="text-end mt-4">
-                    <a href="/laundry" class="btn btn-outline-secondary rounded-pill">
-                        Kembali
-                    </a>
+                    <a href="/riwayat" class="btn btn-outline-ungu rounded-pill"> Kembali</a>
                 </div>
 
             </div>

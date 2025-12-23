@@ -18,20 +18,37 @@
                     <span class="me-2">Halo, {{ auth()->user()->name }}</span>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0">Logout</button>
+                        <button onclick="return confirm('Kamu yakin ingin logout?')" type="submit" class="btn btn-link p-0">Logout</button>
                     </form>
                 @endauth
             </div>
         </div>
-
-        <!-- GARIS PEMISAH -->
         <hr class="my-2">
-
-        <!-- BARIS BAWAH (MENU) -->
         <div class="d-flex gap-4">
             <a href="{{ route('laundry') }}" class="text-decoration-none fw-semibold">Home</a>
-            <a href="{{ route('riwayat') }}" class="text-decoration-none fw-semibold">Riwayat</a>
-            <a href="{{ route('history') }}" class="text-decoration-none fw-semibold">History</a>
+            @auth
+                @role('pelanggan')
+                    <a href="{{ route('riwayat') }}" class="text-decoration-none fw-semibold">
+                        Orderan Kamu
+                    </a>
+                    <a href="{{ route('history') }}" class="text-decoration-none fw-semibold">
+                        History
+                    </a>
+                @endrole
+            @endauth
+
+            @auth
+                @role('admin')
+                    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none fw-semibold">
+                        Kelola Layanan
+                    </a>
+
+                    <a href="{{ route('admin.orders') }}" class="text-decoration-none fw-semibold">
+                        Orders
+                    </a>
+                @endrole
+            @endauth
+
         </div>
 
     </div>

@@ -49,7 +49,7 @@
                             <input type="time" name="jam_pickup" class="form-control form-control-sm" value="{{ now()->format('H:i') }}">
                         </div>
                         <div class="d-flex gap-3 align-bottom justify-content-end">
-                            <a href="/laundry" class="btn btn-outline-danger rounded-pill">Cancel</a>
+                            <a href="{{ route('laundry') }}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-success rounded-pill">Order</button>
                         </div>
                     </form>

@@ -1,7 +1,6 @@
-<x-layout title="Resi Laundry">
-    <div class="container mt-5 mb-5 fade-in">
-        <div class="card shadow rounded-4">
-            <div class="card-body p-4">
+<div class="container-fluid px-5 fade-in">
+    <div class="card shadow-lg rounded-4 bg-white bg-opacity-90 border-0">
+        <div class="card-body p-4 pt-3 overflow-hidden">
 
                 <h4 class="fw-bold text-center mb-4">Resi Laundry</h4>
 

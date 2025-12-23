@@ -8,35 +8,35 @@ use Illuminate\Http\Request;
 
 class AdminOrderController extends Controller
 {
-     public function index()
+    public function index()
     {
-        $orders = Order::with(['user','layanan'])
-            ->orderBy('created_at', 'desc')
+        $orders = Order::with(['user', 'layanan'])
+            ->latest()
             ->get();
 
-        return view('admin.orders.index', compact('orders'));
+        return view('Admin.orders.index', compact('orders'));
     }
 
-    // form edit (isi berat & status)
-    public function edit(Order $order)
+    public function dashboard()
     {
-        return view('admin.orders.edit', compact('order'));
+        $totalOrder = Order::count();
+
+        return view('Admin.dashboard', compact('totalOrder'));
     }
 
-    // simpan perubahan
-    public function update(Request $request, Order $order)
+    public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
-            'berat' => 'required|numeric|min:1',
-            'status' => 'required'
+            'status' => 'required|in:PICKUP,DIPROSES,SELESAI',
+            'berat'  => 'required|numeric|min:1',
         ]);
 
         $order->update([
-            'berat' => $request->berat,
-            'status' => $request->status,
-            'total_harga' => $request->berat * $order->layanan->harga
+            'status'       => $request->status,
+            'berat'        => $request->berat,
+            'total_harga'  => $request->berat * $order->layanan->harga,
         ]);
 
-        return redirect('/admin/orders')->with('success','Order berhasil diupdate');
+        return back()->with('success', 'Order diperbarui');
     }
 }

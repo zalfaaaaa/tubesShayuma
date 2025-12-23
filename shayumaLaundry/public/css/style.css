@@ -2,13 +2,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.hero-section {
-    min-height: 50vh;
+html, body {
+    width: 100%;
+    margin: 0;
 }
 
-.content {
-    min-height: 25vh;
-    /* background-image: linear-gradient(to right, #E5D1FA, #FFF4D2); */
+body {
     background: linear-gradient(to right,
         #C5A7FF,
         #F6A9FF,
@@ -42,6 +41,7 @@
 }
 
 .mini-footer {
+    margin-top: auto;
     padding: 16px 0;
     background: #fff;
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
@@ -98,7 +98,7 @@
 }
 
 .fade-in {
-    animation: fadeIn 0.8s ease-in-out;    
+    animation: fadeIn 0.9s ease-in-out;    
 }
 
     @keyframes fadeIn {
@@ -115,4 +115,30 @@
 .text-justify {
     text-align: justify;
     line-height: 1.7;
+}
+
+.round {
+    border-radius: 1.8rem;
+    overflow: hidden;
+}
+
+.btn-outline-ungu {
+    color: #9d4edd;
+    border: 1.5px solid #9d4edd;
+    background-color: transparent;
+}
+
+.btn-outline-ungu:hover {
+    background-color: #9d4edd;
+    color: #fff;
+    border-color: #9d4edd;
+}
+
+.btn-outline-ungu:focus {
+    box-shadow: 0 0 0 0.2rem rgba(157, 78, 221, 0.35);
+}
+
+.btn-outline-ungu:active {
+    background-color: #7b2cbf;
+    border-color: #7b2cbf;
 }

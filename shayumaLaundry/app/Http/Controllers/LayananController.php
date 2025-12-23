@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Layanan;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class LayananController extends Controller
@@ -16,22 +17,19 @@ class LayananController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'layanan' => 'required',
-            'imgLayanan' => 'image|mimes:jpg,png,jpeg|max:2048'
+            'layanan_id' => 'required|exists:layanans,id',
         ]);
 
-        // upload file
-        $namaFile = null;
-        if ($request->hasFile('imgLayanan')) {
-            $namaFile = $request->file('imgLayanan')->store('layanan', 'public');
-        }
+        // 🔑 AMBIL DATA LAYANAN
+        $layanan = Layanan::findOrFail($request->layanan_id);
 
-        Layanan::create([
-            'layanan' => $request->layanan,
-            'imgLayanan' => $namaFile,
-            // kolom lain kalau ada
+        Order::create([
+            'user_id' => auth()->id(),
+            'layanan_id' => $request->layanan_id,
+            'harga_satuan' => $layanan->harga, // 🔥 WAJIB ADA
+            'status' => 'pending',
         ]);
 
-        return back()->with('success', 'Layanan berhasil ditambahkan');
+        return redirect('/riwayat');
     }
 }
