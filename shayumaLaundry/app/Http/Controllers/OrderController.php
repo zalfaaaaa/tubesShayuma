@@ -2,43 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    
     public function index(Request $request)
     {
-        $layanans = Layanan::all();
-
-        // ambil layanan dari query (?layanan_id=)
-        $selectedLayanan = $request->query('layanan_id');
-
         return view('order', [
-            'layanans' => $layanans,
-            'selectedLayanan' => $selectedLayanan,
+            'layanans'        => Layanan::all(),
+            'selectedLayanan' => $request->layanan_id
         ]);
     }
-
 
     public function store(Request $request)
     {
         $request->validate([
             'layanan_id' => 'required|exists:layanans,id',
+            'jam_pickup' => 'required'
         ]);
 
-        $layanan = Layanan::findOrFail($request->layanan_id);
-
-        Order::create([
-            'user_id' => auth()->id(),
-            'layanan_id' => $layanan->id,
-            'harga_satuan' => $layanan->harga,
-            'status' => 'PICKUP', // ✅ SESUAI ENUM
+        $order = Order::buatOrder([
+            'layanan_id' => $request->layanan_id,
+            'jam_pickup' => $request->jam_pickup
         ]);
 
-        return redirect('/riwayat');
+        return redirect()->route('riwayat')
+            ->with('success', 'Order berhasil dibuat');
+    }
+
+    public function bayar(Order $order)
+    {
+        $order->bayar(); // POLYMORPHISM
+        return back()->with('success', 'Pembayaran berhasil');
     }
 
     public function riwayat()
@@ -50,37 +49,49 @@ class OrderController extends Controller
         return view('riwayat', compact('orders'));
     }
 
-    public function history()
+    public function history(Request $request)
     {
+        // default: minggu ini
+        $week = $request->get('week', 'this');
+
+        if ($week === 'last') {
+            $start = Carbon::now()->subWeek()->startOfWeek();
+            $end   = Carbon::now()->subWeek()->endOfWeek();
+        } else {
+            $start = Carbon::now()->startOfWeek();
+            $end   = Carbon::now()->endOfWeek();
+        }
+
         $orders = Order::where('user_id', auth()->id())
-            ->where('status', Order::STATUS_SELESAI)
-            ->latest()
+            ->where('status', 'selesai') // 🔥 INI KUNCINYA
+            ->whereBetween('created_at', [$start, $end])
+            ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('history', compact('orders'));
+        return view('history', compact('orders', 'week'));
     }
-    
+
     public function resi($id)
     {
-        $order = Order::where('id', $id)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        $order = Order::with(['user', 'layanan'])->findOrFail($id);
 
         return view('resi', compact('order'));
     }
 
-    public function bayar($id)
+    public function updateBerat(Request $request, Order $order)
     {
-        $order = Order::where('id', $id)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        $request->validate([
+            'berat' => 'required|numeric|min:3',
+        ]);
 
         try {
-            $order->bayar(); // 🔑 METHOD OOP DI MODEL
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
-        }
+            $order->inputBerat($request->berat);
 
-        return back()->with('success', 'Pembayaran berhasil');
+            return back()->with('success', 'Berat berhasil diperbarui');
+        } catch (\Exception $e) {
+            return back()->withErrors([
+                'berat' => $e->getMessage()
+            ]);
+        }
     }
 }

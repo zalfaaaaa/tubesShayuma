@@ -35,11 +35,12 @@
 
                     <!-- 🔑 INPUT BERAT (EDIT INI) -->
                     <input type="number"
-                        name="berat"
-                        step="0.1"
-                        min="3"
-                        class="form-control form-control-sm mb-2"
-                        placeholder="Masukkan berat (kg)">
+    name="berat"
+    step="0.1"
+    min="3"
+    class="form-control form-control-sm mb-2"
+    value="{{ $order->berat ?? 3 }}"
+    required>
 
                     <button class="btn btn-sm btn-primary">
                         Update

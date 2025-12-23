@@ -1,53 +1,39 @@
-<x-layout title="History Order">
-    <div class="container my-5 fade-in">
-        <h3 class="fw-bold mb-4 text-center">History Pesanan</h3>
+<x-layout>
+<div class="container-fluid py-5 px-5 fade-in">
+        <div class="card border-0 shadow-lg bg-white bg-opacity-90 round">
+            <div class="card-body">
 
-        @if($orders->count() == 0)
-            <div class="alert alert-info text-center">
-                Belum ada history pesanan.
-            </div>
-        @else
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle text-center">
-                    <thead class="table-dark">
+                <h3 class="fw-bold mb-4 text-center">Riwayat Pesanan</h3>
+
+                <div class="table-responsive round overflow-hidden shadow mb-4">
+                    <table class="table table-borderless align-middle text-center ">
+                        <thead class="table-secondary">
                         <tr>
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Layanan</th>
-                            <th>Jenis</th>
-                            <th>Jumlah</th>
-                            <th>Aksi</th>
+                            <th>Detail</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($orders as $order)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $order->created_at->format('d M Y') }}</td>
-                            <td>{{ $order->layanan->layanan ?? '-' }}</td>
-                            <td>{{ ucfirst($order->jenisLayanan) }}</td>
-                            <td>{{ $order->jumlah }} {{ $order->jenisLayanan == 'kilo' ? 'Kg' : 'Item' }}</td>
-
-                            <!-- <td>
-                                @if($order->status == 'MENUNGGU')
-                                    <span class="badge bg-warning">Menunggu</span>
-                                @elseif($order->status == 'DIPROSES')
-                                    <span class="badge bg-primary">Diproses</span>
-                                @elseif($order->status == 'SELESAI')
-                                    <span class="badge bg-success">Selesai</span>
-                                @endif
-                            </td> -->
-
-                            <td>
-                                <a href="{{ url('/resi/'.$order->id) }}" class="btn btn-sm btn-outline-secondary">
-                                    Resi
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($orders as $order)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $order->created_at->format('d M Y') }}</td>
+                                <td>{{ $order->layanan->layanan }}</td>
+                                <td>
+                                    <a href="{{ route('order.resi', $order->id) }}" class="btn btn-sm btn-outline-ungu rounded-4">Lihat Resi</a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4">Belum ada history pesanan selesai</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        @endif
+        </div>
     </div>
 </x-layout>

@@ -1,50 +1,106 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LayananController extends Controller
 {
     public function index()
     {
         $layanans = Layanan::all();
-        return view('Admin.layanan.index', compact('layanans'));
-    }
-
-    public function create()
-    {
-        return view('Admin.layanan.create');
+        return view('laundry.index', compact('layanans'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'layanan' => 'required',
-            'harga' => 'required|numeric',
+            'layanan'        => 'required|string',
+            'descLayanan'    => 'required|string',
+            'waktuLayanan'   => 'required',
+            'jenisLayanan'   => 'required',
+            'harga'          => 'required|numeric|min:0',
+            'imgLayanan'     => 'image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
-        Layanan::create($request->all());
+        $namaFile = null;
+        if ($request->hasFile('imgLayanan')) {
+            $namaFile = $request->file('imgLayanan')->store('layanan', 'public');
+        }
 
-        return redirect()->route('admin.layanan.index');
+        Layanan::create([
+            'layanan'       => $request->layanan,
+            'descLayanan'   => $request->descLayanan,
+            'imgLayanan'    => $namaFile,
+            'waktuLayanan'  => $request->waktuLayanan,
+            'jenisLayanan'  => $request->jenisLayanan,
+            'harga'         => $request->harga,
+        ]);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Layanan berhasil ditambahkan');
+
     }
 
-    public function edit(Layanan $layanan)
+    public function create()
     {
-        return view('Admin.layanan.edit', compact('layanan'));
-    }
-
-    public function update(Request $request, Layanan $layanan)
-    {
-        $layanan->update($request->all());
-        return redirect()->route('admin.layanan.index');
+        return view('Admin.home.create');
     }
 
     public function destroy(Layanan $layanan)
     {
+        if ($layanan->imgLayanan && Storage::disk('public')->exists($layanan->imgLayanan)) {
+            Storage::disk('public')->delete($layanan->imgLayanan);
+        }
+
         $layanan->delete();
-        return back();
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', 'Layanan berhasil dihapus');
     }
+
+    public function edit(Layanan $layanan)
+    {
+        return view('Admin.home.edit', compact('layanan'));
+    }
+
+    public function update(Request $request, Layanan $layanan)
+{
+    $request->validate([
+        'layanan' => 'required',
+        'descLayanan' => 'required',
+        'waktuLayanan' => 'required',
+        'jenisLayanan' => 'required',
+        'harga' => 'required|numeric',
+        'imgLayanan' => 'image|mimes:jpg,png,jpeg|max:2048'
+    ]);
+
+    // Jika upload gambar baru
+    if ($request->hasFile('imgLayanan')) {
+
+        // hapus gambar lama
+        if ($layanan->imgLayanan && Storage::disk('public')->exists($layanan->imgLayanan)) {
+            Storage::disk('public')->delete($layanan->imgLayanan);
+        }
+
+        $layanan->imgLayanan = $request->file('imgLayanan')
+            ->store('layanan', 'public');
+    }
+
+    // Update data lain
+    $layanan->update([
+        'layanan' => $request->layanan,
+        'descLayanan' => $request->descLayanan,
+        'waktuLayanan' => $request->waktuLayanan,
+        'jenisLayanan' => $request->jenisLayanan,
+        'harga' => $request->harga,
+        'imgLayanan' => $layanan->imgLayanan
+    ]);
+
+    return redirect()
+        ->route('admin.dashboard')
+        ->with('success', 'Layanan berhasil diperbarui');
+}
 }

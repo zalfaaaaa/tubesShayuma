@@ -64,4 +64,25 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::put('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
             ->name('orders.status');
+
+        Route::put('/order/{order}/berat', [OrderController::class, 'updateBerat'])->name('order.updateBerat');
+
+        Route::get('/layanan/create', [LayananController::class, 'create'])
+        ->name('layanan.create');
+
+        Route::post('/layanan', [LayananController::class, 'store'])
+        ->name('layanan.store');
+
+        Route::delete('/layanan/{layanan}', [LayananController::class, 'destroy'])
+        ->name('layanan.destroy');
+
+        Route::get('/layanan/{layanan}/edit', [LayananController::class, 'edit'])
+        ->name('layanan.edit');
+
+        Route::put('/layanan/{layanan}', [LayananController::class, 'update'])
+        ->name('layanan.update');
+
+        Route::get('/orders/history', [AdminOrderController::class, 'history'])
+        ->name('orders.history');
+
     });

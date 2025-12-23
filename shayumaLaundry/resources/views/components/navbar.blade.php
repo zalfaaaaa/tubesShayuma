@@ -10,28 +10,28 @@
 
             <div class="ms-auto d-flex align-items-center gap-2">
                 @guest
-                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-ungu btn-sm">Login</a>
                     <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
                 @endguest
 
                 @auth
-                    <span class="me-2">Halo, {{ auth()->user()->name }}</span>
+                    <span class="me-2 fw-bolder" style="color:#9d4edd">Halo, {{ auth()->user()->name }}</span>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button onclick="return confirm('Kamu yakin ingin logout?')" type="submit" class="btn btn-link p-0">Logout</button>
+                        <button onclick="return confirm('Kamu yakin ingin logout?')" type="submit" class="btn btn-link text-danger p-0 fw-bolder">Logout</button>
                     </form>
                 @endauth
             </div>
         </div>
         <hr class="my-2">
         <div class="d-flex gap-4">
-            <a href="{{ route('laundry') }}" class="text-decoration-none fw-semibold">Home</a>
+            <a href="{{ route('laundry') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">Home</a>
             @auth
                 @role('pelanggan')
-                    <a href="{{ route('riwayat') }}" class="text-decoration-none fw-semibold">
+                    <a href="{{ route('riwayat') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">
                         Orderan Kamu
                     </a>
-                    <a href="{{ route('history') }}" class="text-decoration-none fw-semibold">
+                    <a href="{{ route('history') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">
                         History
                     </a>
                 @endrole
@@ -39,11 +39,11 @@
 
             @auth
                 @role('admin')
-                    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none fw-semibold">
+                    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">
                         Kelola Layanan
                     </a>
 
-                    <a href="{{ route('admin.orders') }}" class="text-decoration-none fw-semibold">
+                    <a href="{{ route('admin.orders') }}" class="text-decoration-none fw-bold" style="color:#9d4edd">
                         Orders
                     </a>
                 @endrole
