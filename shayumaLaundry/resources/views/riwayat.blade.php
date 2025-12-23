@@ -14,9 +14,8 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Layanan</th>
-                            <th>Jenis</th>
-                            <th>Jumlah</th>
-                            <th>Total</th>
+                            <th>Total Harga</th>
+                            <th>Status</th>
                             <th>Resi</th>
                         </tr>
                     </thead>
@@ -26,12 +25,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td>{{ $order->layanan->layanan ?? '-' }}</td>
-                            <td>{{ ucfirst($order->jenis_layanan) }}</td>
-                            <td>
-                                {{ $order->jumlah }}
-                                {{ $order->jenis_layanan == 'kilo' ? 'Kg' : 'Item' }}
-                            </td>
                             <td>Rp{{ number_format($order->total_harga) }}</td>
+                            <td>{{ ucfirst($order->status) }}</td>
                             <td>
                                 <a href="{{ url('/resi/'.$order->id) }}" class="btn btn-sm btn-outline-secondary">
                                     Lihat

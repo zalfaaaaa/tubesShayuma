@@ -30,7 +30,7 @@ class OrderController extends Controller
             'jam_pickup' => $request->jam_pickup
         ]);
 
-        return redirect()->route('history')
+        return redirect()->route('riwayat')
             ->with('success', 'Order berhasil dibuat');
     }
 

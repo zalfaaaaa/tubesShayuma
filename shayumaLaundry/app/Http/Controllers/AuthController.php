@@ -32,16 +32,25 @@ class AuthController extends Controller
         return view('register'); 
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect('/order'); 
+            $user = Auth::user();
+
+            // JIKA ADMIN
+            if ($user->email === 'admin@shayuma.com') {
+                return redirect('/admin/dashboard');
+            }
+
+            // USER BIASA
+            return redirect('/order');
         }
 
         return back()->with('error', 'Login gagal, periksa email/password.');
     }
-
+    
     public function showLogin()
     {
         return view('login');

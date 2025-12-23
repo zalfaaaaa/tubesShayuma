@@ -74,4 +74,10 @@ class Order extends BaseOrder
     {
         return $this->belongsTo(User::class);
     }
+
+    public function ubahStatus(string $status): void
+    {
+        $this->update(['status' => $status]);
+    }
+
 }
