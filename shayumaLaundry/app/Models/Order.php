@@ -56,15 +56,17 @@ class Order extends BaseOrder
     }
 
     // accessor
-    public function getBeratLabelAttribute()
+    public function getBeratLabelAttribute(): string
     {
-        return $this->berat ? "{$this->berat} kg" : 'Menunggu inputan admin';
-    }
-
-    public function getTotalHargaLabelAttribute()
-    {
-        return $this->total_harga
-            ? 'Rp ' . number_format($this->total_harga)
+        return $this->berat !== null
+            ? "{$this->berat} kg"
             : 'Menunggu inputan admin';
     }
+
+    public function getTotalHargaLabelAttribute(): string
+    {
+        return $this->total_harga !== null
+            ? 'Rp ' . number_format($this->total_harga)
+            : 'Menunggu inputan admin';
+}
 }

@@ -13,20 +13,21 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('layanan_id')->constrained('layanans')->cascadeOnDelete();
 
-            $table->decimal('berat', 5, 2);
-            $table->unsignedInteger('harga_satuan');
-            $table->unsignedInteger('total_harga');
+            $table->decimal('berat', 5, 2)->nullable();
+            $table->unsignedInteger('total_harga')->nullable();
 
             $table->date('tanggal_masuk');
             $table->date('tanggal_keluar')->nullable();
             $table->time('jam_pickup')->nullable();
+            $table->time('jam_keluar')->nullable();
 
             $table->enum('status', [
+                'PICKUP',
                 'MENUNGGU_PEMBAYARAN',
                 'DIPROSES',
                 'SELESAI',
                 'DIAMBIL'
-            ])->default('MENUNGGU_PEMBAYARAN');
+            ])->default('PICKUP');
 
             $table->timestamps();
         });

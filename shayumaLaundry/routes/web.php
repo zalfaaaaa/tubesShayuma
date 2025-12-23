@@ -1,20 +1,18 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminOrderController;
-use App\Models\Layanan;
 
-Route::get('/', function () {
-    return redirect('/laundry');
-});
-
-
+Route::get('/', fn () => redirect('/laundry'));
 Route::get('/laundry', [LayananController::class, 'index'])->name('laundry');
 
+//auth
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -23,6 +21,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// user
 Route::middleware('auth')->group(function () {
 
     Route::get('/order', [OrderController::class, 'index'])->name('order.index');
@@ -32,13 +31,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/resi/{id}/bayar', [OrderController::class, 'bayar'])->name('order.bayar');
 
     Route::get('/history', [OrderController::class, 'history'])->name('history');
-
     Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat');
-
 });
 
-Route::middleware(['auth','admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'dashboard']);
-    Route::get('/admin/order', [AdminOrderController::class, 'index']);
-    Route::put('/admin/order/{id}', [AdminOrderController::class, 'update']);
+//admin
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])
+            ->name('dashboard');
+
+        Route::get('/orders', [AdminOrderController::class, 'index'])
+            ->name('orders.index');
+
+        Route::put('/orders/{id}', [AdminOrderController::class, 'update'])
+            ->name('orders.update');
 });

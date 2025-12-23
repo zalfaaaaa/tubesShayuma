@@ -29,20 +29,17 @@
                             <label class="form-label fw-semibold">Alamat</label>
                             <textarea class="form-control form-control-sm" rows="2" readonly>{{ auth()->user()->address }}</textarea>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Berat Laundry (Kg)</label>
-                            <input type="number" name="berat" class="form-control form-control-sm" min="1" step="0.1"requiredvalue="{{ old('berat') }}">
-                        </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Pilih Layanan</label>
                             <select name="layanan_id" class="form-select form-select-sm" required>
                                 <option value="">Pilih Layanan</option>
                                 @foreach($layanans as $layanan)
                                     <option value="{{ $layanan->id }}"
-                                        {{ old('layanan_id') == $layanan->id ? 'selected' : '' }}>
-                                        {{ $layanan->layanan }} | {{ ucfirst($layanan->jenisLayanan) }} |
-                                        {{ $layanan->waktuLayanan }} | Rp{{ number_format($layanan->harga) }}
+                                        {{ old('layanan_id', $selectedLayanan) == $layanan->id ? 'selected' : '' }}>
+                                        {{ $layanan->layanan }} |
+                                        {{ ucfirst($layanan->jenisLayanan) }} |
+                                        {{ $layanan->waktuLayanan }} |
+                                        Rp{{ number_format($layanan->harga) }}
                                     </option>
                                 @endforeach
                             </select>
