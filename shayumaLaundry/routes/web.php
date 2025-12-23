@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LayananController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Models\Layanan;
 
 Route::get('/', function () {
@@ -33,4 +35,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat');
 
+});
+
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'dashboard']);
+    Route::get('/admin/order', [AdminOrderController::class, 'index']);
+    Route::put('/admin/order/{id}', [AdminOrderController::class, 'update']);
 });
