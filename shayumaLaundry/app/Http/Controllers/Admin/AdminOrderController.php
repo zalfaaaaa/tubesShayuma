@@ -53,22 +53,26 @@ class AdminOrderController extends Controller
 
     public function history(Request $request)
     {
-        // Minggu & tahun (default minggu ini)
-        $week = $request->week ?? now()->weekOfYear;
-        $year = $request->year ?? now()->year;
+        // Mengambil input atau default ke waktu sekarang
+        $month = (int) ($request->month ?? now()->month);
+        $year  = (int) ($request->year ?? now()->year);
+        $week  = (int) ($request->week ?? 1); 
 
-        // Range minggu
-        $start = now()->setISODate($year, $week)->startOfWeek();
-        $end   = now()->setISODate($year, $week)->endOfWeek();
+        // Membuat tanggal awal bulan (Contoh: 2025-12-01)
+        $startOfMonth = Carbon::create($year, $month, 1)->startOfMonth();
 
-        // Semua order selesai
+        // Logika Range Mingguan:
+        // Kita ambil awal bulan, lalu tambah minggu sesuai pilihan
+        $start = $startOfMonth->copy()->addWeeks($week - 1)->startOfWeek();
+        $end   = $start->copy()->endOfWeek();
+
         $orders = Order::with(['user', 'layanan'])
             ->where('status', 'selesai')
             ->whereBetween('created_at', [$start, $end])
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('Admin.history.index', compact('orders', 'week', 'year'));
+        return view('Admin.history.index', compact('orders', 'week', 'month', 'year'));
     }
 
     public function destroy(Order $order)
