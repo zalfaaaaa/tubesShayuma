@@ -30,15 +30,13 @@ class OrderController extends Controller
             'jam_pickup' => $request->jam_pickup
         ]);
 
+        // otomatis isi tanggal & jam keluar
+        $order->setTanggalKeluarOtomatis();
+
         return redirect()->route('riwayat')
             ->with('success', 'Order berhasil dibuat');
     }
 
-    public function bayar(Order $order)
-    {
-        $order->bayar(); // POLYMORPHISM
-        return back()->with('success', 'Pembayaran berhasil');
-    }
 
     public function riwayat()
     {

@@ -20,8 +20,10 @@
                     </tr>
                     <tr>
                         <th>Layanan</th>
-                        <td>: {{ $order->layanan->layanan }}
-                            ({{ ucfirst($order->layanan->jenisLayanan) }} | {{ $order->layanan->waktuLayanan }})</td>
+                        <td>
+                            : {{ $order->layanan->layanan }}
+                            ({{ ucfirst($order->layanan->jenisLayanan) }} | {{ $order->layanan->waktuLayanan }})
+                        </td>
                     </tr>
                     <tr>
                         <th>Harga / Kg</th>
@@ -33,16 +35,48 @@
                     </tr>
                     <tr>
                         <th>Total</th>
-                        <td class="fw-bold">: Rp {{ number_format($order->berat * $order->layanan->harga) }}</td>
+                        <td class="fw-bold">
+                            : Rp {{ number_format($order->total_harga) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Jam Pickup</th>
+                        <td>: {{ $order->jam_pickup }}</td>
+                    </tr>
+                    <tr>
+                        <th>Jam Keluar</th>
+                        <td>:
+                            {{ $order->jam_keluar ?? 'Belum selesai' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal Masuk</th>
+                        <td>:
+                            {{ \Carbon\Carbon::parse($order->tanggal_masuk)->format('d-m-Y') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal Keluar</th>
+                        <td>:
+                            {{ $order->tanggal_keluar
+                                ? \Carbon\Carbon::parse($order->tanggal_keluar)->format('d-m-Y')
+                                : 'Belum selesai' }}
+                        </td>
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td>: <span class="badge bg-warning text-dark">{{ str_replace('_',' ', $order->status) }}</span></td>
+                        <td>:
+                            <span class="badge bg-warning text-dark">
+                                {{ str_replace('_', ' ', $order->status) }}
+                            </span>
+                        </td>
                     </tr>
                 </table>
 
                 <div class="text-end mt-4">
-                    <a href="/riwayat" class="btn btn-outline-ungu rounded-pill"> Kembali</a>
+                    <a href="{{ route('riwayat') }}" class="btn btn-outline-ungu rounded-pill">
+                        Kembali
+                    </a>
                 </div>
 
             </div>

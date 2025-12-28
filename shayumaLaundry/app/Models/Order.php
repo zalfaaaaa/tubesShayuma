@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Layanan;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 
 class Order extends BaseOrder
@@ -16,22 +17,51 @@ class Order extends BaseOrder
 
     // factory method
     public static function buatOrder(array $data): self
-    {
-        $layanan = Layanan::findOrFail($data['layanan_id']);
+{
+    $layanan = Layanan::findOrFail($data['layanan_id']);
 
-        return self::create([
-            'user_id'       => auth()->id(),
-            'layanan_id'    => $layanan->id,
-            'harga_satuan'  => $layanan->harga,
-            'berat'         => self::MIN_BERAT,
-            'total_harga'   => self::MIN_BERAT * $layanan->harga,
-            'jam_pickup'    => $data['jam_pickup'],
-            'tanggal_masuk' => now(),
-            'status'        => self::STATUS_PICKUP,
+    // Tentukan lama pengerjaan
+    if ($layanan->waktuLayanan === 'Express') {
+        $hari = 1;
+    } else {
+        $hari = 2; // Reguler
+    }
+
+    $tanggalMasuk = now();
+    $tanggalKeluar = $tanggalMasuk->copy()->addDays($hari);
+
+    return self::create([
+        'user_id'        => auth()->id(),
+        'layanan_id'     => $layanan->id,
+        'harga_satuan'   => $layanan->harga,
+        'berat'          => self::MIN_BERAT,
+        'total_harga'    => self::MIN_BERAT * $layanan->harga,
+        'jam_pickup'     => $data['jam_pickup'],
+        'tanggal_masuk'  => $tanggalMasuk,
+        'tanggal_keluar' => $tanggalKeluar,
+        'jam_keluar'     => $data['jam_pickup'], // jam selesai = jam pickup
+        'status'         => self::STATUS_PICKUP,
+    ]);
+}
+
+
+    public function setTanggalKeluarOtomatis(): void
+    {
+        $hariTambahan = match ($this->layanan->waktuLayanan) {
+            'Express' => 1,
+            'Reguler' => 2,
+            default   => 0,
+        };
+
+        $tanggalKeluar = Carbon::parse($this->tanggal_masuk)
+            ->addDays($hariTambahan);
+
+        $this->update([
+            'tanggal_keluar' => $tanggalKeluar->toDateString(),
+            'jam_keluar'     => now()->toTimeString(),
         ]);
     }
 
-    // polymorphism
     public function inputBerat(float $berat): void
     {
         if ($berat < self::MIN_BERAT) {
@@ -46,7 +76,7 @@ class Order extends BaseOrder
 
     public function bayar(): void
     {
-        if ($this->status !== self::STATUS_MENUNGGU_PEMBAYARAN) {
+        if ($this->status !== self::STATUS_MENUNGGU_) {
             throw new Exception('Order belum bisa dibayar');
         }
 
@@ -55,7 +85,6 @@ class Order extends BaseOrder
         ]);
     }
 
-    // accessor
     public function getBeratLabelAttribute(): string
     {
         return $this->berat !== null
